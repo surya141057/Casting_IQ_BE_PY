@@ -33,9 +33,10 @@ class pattern_typeView(generics.GenericAPIView):
             except:
                 serializer.is_valid()
                 errors = serializer.errors
-                return JsonResponse({'status': 'fail', 'message': "Something Went Wrong".capitalize().replace('_', ' ')}, status=HTTPStatus.BAD_REQUEST.value)
+                return JsonResponse({'status': 'fail', 'message': f"Seralizer error {errors}".capitalize().replace('_', ' ')}, status=HTTPStatus.BAD_REQUEST.value)
             if is_valid:
                 pattern_type_data = serializer.validated_data
+                is_draft = pattern_type_data.get('is_draft', False)
                 if  not len(pattern_type_data['name']):
                     return JsonResponse({'status': 'fail', 'message': 'Please Enter Pattern Type Name'.capitalize().replace('_', ' ')},
                                     status=HTTPStatus.BAD_REQUEST.value)
@@ -45,7 +46,7 @@ class pattern_typeView(generics.GenericAPIView):
                 
                 pattern_type.objects.create(**pattern_type_data)
                 
-                message = ('Pattern type saved as draft successfully' if pattern_type_data['is_draft'] 
+                message = ('Pattern type saved as draft successfully' if is_draft 
                       else 'Pattern type created successfully')
             
             return JsonResponse(
@@ -71,6 +72,7 @@ class pattern_typeView(generics.GenericAPIView):
                 errors = serializer.errors
                 return JsonResponse({'status': 'fail', 'message': "Something Went Wrong".capitalize().replace('_', ' ')}, status=HTTPStatus.BAD_REQUEST.value)
             if is_valid:
+                is_draft = pattern_type_data.get('is_draft', False)
                 pattern_type_data = serializer.validated_data
                 if  not len(pattern_type_data['name']):
                     return JsonResponse({'status': 'fail', 'message': 'Please Enter Pattern Type Name'.capitalize().replace('_', ' ')},
@@ -79,7 +81,7 @@ class pattern_typeView(generics.GenericAPIView):
                     return JsonResponse({'status': 'fail', 'message': 'Pattern Type Name Already Exist'.capitalize().replace('_', ' ')}, status=HTTPStatus.BAD_REQUEST.value)
                 
                 serializer.save()
-                message = ('Pattern type update draft successfully' if pattern_type_data['is_draft'] 
+                message = ('Pattern type update draft successfully' if is_draft 
                       else 'Pattern type update successfully')
             
             return JsonResponse(

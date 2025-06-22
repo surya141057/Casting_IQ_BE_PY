@@ -502,3 +502,27 @@ Traceback (most recent call last):
   File "C:\Users\emedhub\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\serializers.py", line 1148, in get_field_names
     assert field_name in fields, (
 AssertionError: The field 'SubModule' was declared on serializer ModuleWithSubmodulesSerializer, but has not been included in the 'fields' option.
+[2025-06-22 22:53:28] ERROR in my_logger: Error in GET method: 'ReturnDict' object has no attribute 'capitalize'
+Traceback (most recent call last):
+  File "C:\Users\emedhub\Desktop\html\Project\BE\castingiq jango\castingiq\master\views.py", line 32, in post
+    is_valid = serializer.is_valid(raise_exception=True)
+  File "C:\Users\emedhub\AppData\Local\Programs\Python\Python310\lib\site-packages\rest_framework\serializers.py", line 235, in is_valid
+    raise ValidationError(self.errors)
+rest_framework.exceptions.ValidationError: {'description': [ErrorDetail(string='This field is required.', code='required')]}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\emedhub\Desktop\html\Project\BE\castingiq jango\castingiq\master\views.py", line 36, in post
+    return JsonResponse({'status': 'fail', 'message': "Seralizer error"+errors.capitalize().replace('_', ' ')}, status=HTTPStatus.BAD_REQUEST.value)
+AttributeError: 'ReturnDict' object has no attribute 'capitalize'
+[2025-06-22 22:58:12] ERROR in my_logger: Error in GET method: 'is_draft'
+Traceback (most recent call last):
+  File "C:\Users\emedhub\Desktop\html\Project\BE\castingiq jango\castingiq\master\views.py", line 48, in post
+    message = ('Pattern type saved as draft successfully' if pattern_type_data['is_draft']
+KeyError: 'is_draft'
+[2025-06-22 23:02:29] ERROR in my_logger: Error in GET method: local variable 'pattern_type_data' referenced before assignment
+Traceback (most recent call last):
+  File "C:\Users\emedhub\Desktop\html\Project\BE\castingiq jango\castingiq\master\views.py", line 30, in post
+    is_draft = pattern_type_data.get('is_draft', False)
+UnboundLocalError: local variable 'pattern_type_data' referenced before assignment

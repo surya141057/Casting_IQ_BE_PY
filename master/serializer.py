@@ -8,7 +8,10 @@ class pattern_typeSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = pattern_type
-        fields = ('id','code','name', 'description', 'notes', 'is_active', 'is_draft')
+        fields = '__all__'
+        extra_kwargs = {
+            'description': {'required': False, 'allow_blank': True}
+        }
 
     def validate(self, attrs):
         instance_id = getattr(self.instance, 'id', None)    
