@@ -18,9 +18,12 @@ from django.contrib import admin
 from django.urls import path
 from master.views import pattern_typeView
 from module.views import ModuleView
+from master.views import matchPlate_typeView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/pattern-type/', pattern_typeView.as_view(), name='pattern-type'),
+    path('api/module/', ModuleView.as_view(), name='module'),
+    path('api/matchPlate-type/', matchPlate_typeView.as_view(), name='matchPlate_type'),
     path('api/module/', ModuleView.as_view(), name='module'),
 ]

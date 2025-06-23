@@ -13,3 +13,14 @@ class pattern_typeSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         instance_id = getattr(self.instance, 'id', None)    
         return CodeAutoGenerate.generate_code(self.Meta.model, attrs, prefix='EMT', id=instance_id)
+
+class matchPlate_typeserializer(serializers.ModelSerializer):
+    is_active = serializers.BooleanField(required=False, error_messages={'invalid': 'Is Active must be True or False'.capitalize().replace('_', ' ')}, default=True)
+    
+    class Meta:
+        model = matchPlate_type
+        fields = '__all__'
+
+    def validate(self, attrs):
+        instance_id = getattr(self.instance, 'id', None)    
+        return CodeAutoGenerate.generate_code(self.Meta.model, attrs, prefix='EMT', id=instance_id)
